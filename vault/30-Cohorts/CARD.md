@@ -1,11 +1,11 @@
 ---
 type: cohort
-name: "Clinic for Alzheimer's and Related Disorders"
+name: "Clinic for Alzheimer's Disease and Related Disorders"
 acronym: "CARD"
 tags: [cohort, autopsy, neuropathology]
 ---
 
-# CARD — Clinic for Alzheimer's and Related Disorders
+# CARD — Clinic for Alzheimer's Disease and Related Disorders
 
 The autopsy-confirmed cohort — provides the pathological gold standard.
 

@@ -33,4 +33,4 @@ The pathological-validation backbone of the thesis.
 
 ## Status
 
-In preparation: Cooper JG, Futhey NC, Agbay A, Pflueger S, Scott I, Mackenzie IR, Hirsch-Reinshagen V, Stukas S, Hsiung GY, Wellington CL.
+In preparation: Cooper JG, Futhey NC, Agbay A, Pfulueger S, Scott I, Mackenzie IR, Hirsch-Reinshagen V, Stukas S, Hsiung GY, Wellington CL.

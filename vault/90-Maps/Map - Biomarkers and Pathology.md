@@ -19,13 +19,13 @@ graph LR
     NF[NfL]:::biomarker
     GF[GFAP]:::biomarker
 
-    AMY>Amyloid plaques]:::pathology
-    TAU>Tau tangles]:::pathology
-    NEU>Neurodegeneration]:::pathology
-    INF>Astrogliosis / inflammation]:::pathology
-    SYN>α-synuclein]:::pathology
-    TDP>TDP-43]:::pathology
-    CVD>Cerebrovascular]:::pathology
+    AMY>"Amyloid plaques"]:::pathology
+    TAU>"Tau tangles"]:::pathology
+    NEU>"Neurodegeneration"]:::pathology
+    INF>"Astrogliosis / inflammation"]:::pathology
+    SYN>"α-synuclein"]:::pathology
+    TDP>"TDP-43"]:::pathology
+    CVD>"Cerebrovascular"]:::pathology
 
     A[/A — Amyloid/]:::concept
     T[/T — Tau/]:::concept

@@ -54,13 +54,13 @@ graph LR
     LE{{LASSO / Elastic Net}}:::method
 
     %% ----- diseases / pathology -----
-    AD>Alzheimer's Disease]:::disease
-    FTD>FTD]:::disease
-    DLB>DLB]:::disease
-    VAD>Vascular Dementia]:::disease
-    ADNC>ADNC]:::disease
-    COP>Co-pathologies]:::disease
-    TDP>TDP-43]:::disease
+    AD>"Alzheimer's Disease"]:::disease
+    FTD>"FTD"]:::disease
+    DLB>"DLB"]:::disease
+    VAD>"Vascular Dementia"]:::disease
+    ADNC>"ADNC"]:::disease
+    COP>"Co-pathologies"]:::disease
+    TDP>"TDP-43"]:::disease
 
     %% ----- concepts -----
     ATN[/ATN Framework/]:::concept

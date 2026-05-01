@@ -3,14 +3,14 @@ type: chapter
 chapter: 8
 title: "Exploratory Investigation of Plasma Biomarkers to Detect AD Co-pathologies"
 pages: "125–143"
-status: in-preparation
+status: exploratory-pilot
 cohort: "CARD"
-tags: [chapter, copathology, lasso, alamar]
+tags: [chapter, copathology, lasso, alamar, pilot]
 ---
 
 # Chapter 8 — Co-pathologies in an Autopsy Cohort
 
-Exploratory work on detecting α-synuclein, [[TDP-43 Pathology]], and cerebrovascular disease alongside [[ADNC]].
+An extension of [[Chapter 07 - Autopsy AD Neuropathology|Chapter 7]] — preliminary pilot data exploring biomarkers for non-AD pathologies (α-synuclein, [[TDP-43 Pathology]], cerebrovascular disease) alongside [[ADNC]]. Used to plan a larger biomarker-discovery study.
 
 ## Cohort & methods
 

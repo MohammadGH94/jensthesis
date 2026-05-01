@@ -26,7 +26,7 @@ tags: [home, index, thesis, neurodegeneration, biomarkers]
 
 - [[CHMS]] — Canadian Health Measures Survey (normative population, n ≈ 4000)
 - [[Super Seniors]] — cognitively resilient elderly cohort
-- [[CARD]] — Clinic for Alzheimer's and Related Disorders (autopsy-confirmed)
+- [[CARD]] — Clinic for Alzheimer's Disease and Related Disorders (autopsy-confirmed)
 - [[COMPASS-ND]] — Comprehensive Assessment of Neurodegeneration and Dementia
 
 ## The ten chapters
