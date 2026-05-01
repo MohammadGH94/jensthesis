@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Cooper Thesis — Second Brain Map</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<style>
+  :root {
+    --bg: #0e1117;
+    --panel: #161b22;
+    --fg: #e6edf3;
+    --muted: #8b949e;
+    --accent: #58a6ff;
+    --chapter:   #1f77b4;
+    --biomarker: #d62728;
+    --cohort:    #2ca02c;
+    --disease:   #9467bd;
+    --method:    #ff7f0e;
+    --concept:   #17becf;
+    --person:    #7f7f7f;
+  }
+  html, body { margin:0; padding:0; height:100%; background:var(--bg); color:var(--fg);
+    font-family: -apple-system, "Segoe UI", system-ui, sans-serif; }
+  #app { display:grid; grid-template-columns: 1fr 320px; height:100vh; }
+  svg  { width:100%; height:100%; cursor: grab; background:
+    radial-gradient(circle at 30% 30%, #1a2331 0%, var(--bg) 60%); }
+  svg:active { cursor: grabbing; }
+  .sidebar { background: var(--panel); padding:18px 18px 24px; overflow-y:auto;
+    border-left: 1px solid #30363d; }
+  h1 { font-size: 15px; margin: 0 0 4px; }
+  h2 { font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted);
+    margin: 18px 0 6px; }
+  .sub { color: var(--muted); font-size: 12px; margin: 0 0 16px; }
+  .legend { display:flex; flex-direction:column; gap:6px; font-size: 13px; }
+  .swatch { display:inline-block; width:11px; height:11px; border-radius:50%; margin-right:8px;
+    vertical-align: middle; }
+  .filters label { display:flex; align-items:center; gap:6px; font-size: 13px;
+    margin-bottom: 4px; user-select:none; cursor:pointer; }
+  .filters input { accent-color: var(--accent); }
+  .controls button { background:#21262d; color:var(--fg); border:1px solid #30363d;
+    padding:6px 10px; margin-right:6px; margin-top:6px; border-radius:6px; cursor:pointer;
+    font-size: 12px; }
+  .controls button:hover { background:#30363d; }
+  #info { font-size: 13px; line-height: 1.4; color: var(--fg); }
+  #info .title { font-weight: 600; font-size: 14px; }
+  #info .type { color: var(--muted); font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.08em; margin-bottom: 8px; }
+  #info ul { margin: 6px 0 0 0; padding-left: 18px; }
+  #info li { margin: 2px 0; }
+  #info .empty { color: var(--muted); font-style: italic; }
+  .node text { font-size: 11px; pointer-events: none;
+    text-shadow: 0 0 2px var(--bg), 0 0 2px var(--bg), 0 0 2px var(--bg); }
+  .link { stroke: #4d5562; stroke-opacity: 0.55; }
+  .link.dim { stroke-opacity: 0.08; }
+  .link.hi  { stroke: var(--accent); stroke-opacity: 0.95; stroke-width: 2px; }
+  .node circle { stroke: #0e1117; stroke-width: 1.5px; cursor: pointer; transition: r 120ms; }
+  .node:hover circle { stroke: var(--accent); stroke-width: 2.5px; }
+  .node.dim { opacity: 0.18; }
+  footer { color: var(--muted); font-size: 11px; margin-top: 18px; }
+</style>
+</head>
+<body>
+<div id="app">
+  <svg id="graph"></svg>
+  <aside class="sidebar">
+    <h1>Cooper Thesis Brain Map</h1>
+    <p class="sub">Plasma Biomarkers of Neurodegeneration<br>UBC PhD, March 2026</p>
+
+    <div class="controls">
+      <button id="reset">Reset</button>
+      <button id="recentre">Re-centre</button>
+    </div>
+
+    <h2>Filter by type</h2>
+    <div class="filters" id="filters"></div>
+
+    <h2>Legend</h2>
+    <div class="legend" id="legend"></div>
+
+    <h2>Selection</h2>
+    <div id="info"><span class="empty">Click a node to inspect.</span></div>
+
+    <footer>
+      Drag nodes · Scroll to zoom · Click to focus<br>
+      Sibling vault: <code>vault/</code>
+    </footer>
+  </aside>
+</div>
+
+<script>
+const TYPES = {
+  chapter:   { color: "#1f77b4", label: "Chapter" },
+  biomarker: { color: "#d62728", label: "Biomarker" },
+  cohort:    { color: "#2ca02c", label: "Cohort" },
+  disease:   { color: "#9467bd", label: "Disease / pathology" },
+  method:    { color: "#ff7f0e", label: "Method / platform" },
+  concept:   { color: "#17becf", label: "Concept" },
+  person:    { color: "#7f7f7f", label: "Person" },
+};
+
+const nodes = [
+  // chapters (size by importance)
+  { id:"C1",  type:"chapter", label:"Ch 1 · Introduction", r: 14 },
+  { id:"C2",  type:"chapter", label:"Ch 2 · Reference Intervals", r: 14 },
+  { id:"C3",  type:"chapter", label:"Ch 3 · Reference Curves", r: 16 },
+  { id:"C4",  type:"chapter", label:"Ch 4 · Cross-Lot QC", r: 12 },
+  { id:"C5",  type:"chapter", label:"Ch 5 · Cognitive Resilience", r: 14 },
+  { id:"C6",  type:"chapter", label:"Ch 6 · APOE4 / p-tau-181", r: 13 },
+  { id:"C7",  type:"chapter", label:"Ch 7 · Autopsy ADNC", r: 16 },
+  { id:"C8",  type:"chapter", label:"Ch 8 · Co-pathologies", r: 13 },
+  { id:"C9",  type:"chapter", label:"Ch 9 · COMPASS-ND Prevalence", r: 17 },
+  { id:"C10", type:"chapter", label:"Ch 10 · Discussion", r: 14 },
+
+  // biomarkers
+  { id:"AB", type:"biomarker", label:"Aβ42/40", r: 12 },
+  { id:"PT", type:"biomarker", label:"p-tau-181", r: 12 },
+  { id:"NF", type:"biomarker", label:"NfL", r: 11 },
+  { id:"GF", type:"biomarker", label:"GFAP", r: 11 },
+
+  // cohorts
+  { id:"CHMS", type:"cohort", label:"CHMS (normative)", r: 13 },
+  { id:"SS",   type:"cohort", label:"Super Seniors", r: 11 },
+  { id:"CARD", type:"cohort", label:"CARD (autopsy)", r: 13 },
+  { id:"CND",  type:"cohort", label:"COMPASS-ND", r: 12 },
+
+  // methods
+  { id:"SIM", type:"method", label:"Quanterix Simoa", r: 12 },
+  { id:"AL",  type:"method", label:"Alamar ARGO / NULISA", r: 11 },
+  { id:"RC",  type:"method", label:"Reference-curve modelling (GAMLSS)", r: 11 },
+  { id:"LE",  type:"method", label:"LASSO / Elastic Net", r: 9 },
+
+  // diseases
+  { id:"AD",   type:"disease", label:"Alzheimer's Disease", r: 13 },
+  { id:"FTD",  type:"disease", label:"FTD", r: 8 },
+  { id:"DLB",  type:"disease", label:"DLB", r: 8 },
+  { id:"VAD",  type:"disease", label:"Vascular dementia", r: 8 },
+  { id:"ADNC", type:"disease", label:"ADNC", r: 12 },
+  { id:"COP",  type:"disease", label:"Co-pathologies", r: 11 },
+  { id:"TDP",  type:"disease", label:"TDP-43 pathology", r: 9 },
+  { id:"CAA",  type:"disease", label:"CAA", r: 7 },
+
+  // concepts
+  { id:"ATN",  type:"concept", label:"ATN framework", r: 11 },
+  { id:"RES",  type:"concept", label:"Cognitive resilience", r: 11 },
+  { id:"APOE", type:"concept", label:"APOE4", r: 10 },
+  { id:"PPS",  type:"concept", label:"Plasma probability scores", r: 12 },
+  { id:"CIC",  type:"concept", label:"Clinical implementation (Canada)", r: 12 },
+
+  // people
+  { id:"JC", type:"person", label:"Jennifer Cooper", r: 9 },
+  { id:"CW", type:"person", label:"Cheryl Wellington", r: 8 },
+  { id:"GH", type:"person", label:"Ging-Yuek Hsiung", r: 7 },
+  { id:"DH", type:"person", label:"Daniel Holmes", r: 7 },
+  { id:"SS2",type:"person", label:"Sophie Stukas", r: 7 },
+  { id:"AB2",type:"person", label:"Brooks-Wilson", r: 7 },
+];
+
+const links = [
+  // chapter spine
+  ["C1","C2","next"],["C2","C3","next"],["C3","C4","next"],
+  ["C4","C5","next"],["C5","C6","next"],["C6","C7","next"],
+  ["C7","C8","next"],["C8","C9","next"],["C9","C10","next"],
+
+  // biomarkers measured by chapters
+  ...["C2","C3","C5","C7","C9"].flatMap(c=>["AB","PT","NF","GF"].map(b=>[c,b,"measures"])),
+  ["C4","AB","measures"],["C4","PT","measures"],["C4","NF","measures"],["C4","GF","measures"],
+  ["C6","PT","measures"],
+
+  // cohorts used by chapters
+  ["C2","CHMS","uses"],["C3","CHMS","uses"],
+  ["C5","SS","uses"],["C5","CHMS","compares"],
+  ["C6","SS","uses"],
+  ["C7","CARD","uses"],["C8","CARD","uses"],
+  ["C9","CND","uses"],["C9","CHMS","derives RC-PPS"],["C9","CARD","derives ADNC-PPS"],
+
+  // methods/platforms
+  ["C2","SIM","platform"],["C3","SIM","platform"],["C4","SIM","platform"],
+  ["C5","SIM","platform"],["C6","SIM","platform"],["C7","SIM","platform"],
+  ["C7","AL","platform"], ["C8","AL","platform"], ["C9","SIM","platform"],
+  ["C3","RC","method"], ["C8","LE","method"],
+
+  // diseases
+  ["C1","AD","describes"],["C1","FTD","describes"],["C1","DLB","describes"],
+  ["C1","VAD","describes"],["C1","CAA","describes"],
+  ["C7","ADNC","detects"], ["C8","COP","detects"], ["C8","TDP","detects"],
+
+  // concept anchors
+  ["C1","ATN","introduces"], ["AB","ATN","is A"], ["PT","ATN","is T"], ["NF","ATN","is N"],
+  ["C5","RES","embodies"], ["SS","RES","cohort of"], ["C6","APOE","modulated by"],
+  ["RES","APOE","modified by"],
+  ["C9","PPS","delivers"], ["PPS","CIC","enables"], ["C10","CIC","synthesises into"],
+
+  // people
+  ["C1","JC","author"], ["C2","JC","author"],["C3","JC","author"],["C4","JC","author"],
+  ["C5","JC","author"],["C6","JC","author"],["C7","JC","author"],["C8","JC","author"],
+  ["C9","JC","author"],["C10","JC","author"],
+  ["JC","CW","supervised by"],
+  ["C7","GH","collaborator"], ["CARD","GH","clinic"],
+  ["C2","DH","co-author"], ["C3","DH","co-author"],
+  ["C2","SS2","co-author"], ["C5","SS2","co-author"], ["C6","SS2","co-author"],
+  ["SS","AB2","provided by"], ["C5","AB2","collaborator"], ["C6","AB2","collaborator"],
+];
+
+const linkObjs = links.map(([s,t,r])=>({source:s,target:t,rel:r}));
+const adj = new Map(nodes.map(n=>[n.id,new Set()]));
+for (const l of linkObjs) { adj.get(l.source).add(l.target); adj.get(l.target).add(l.source); }
+const nodeById = new Map(nodes.map(n=>[n.id,n]));
+
+const svg = d3.select("#graph");
+const g   = svg.append("g");
+const linkSel = g.append("g").attr("stroke-linecap","round")
+  .selectAll("line").data(linkObjs).join("line").attr("class","link");
+const nodeSel = g.append("g").selectAll("g.node").data(nodes).join("g").attr("class","node");
+
+nodeSel.append("circle").attr("r", d=>d.r).attr("fill", d=>TYPES[d.type].color);
+nodeSel.append("text").text(d=>d.label).attr("dx", d=>d.r+4).attr("dy","0.32em")
+  .attr("fill","#e6edf3");
+
+const sim = d3.forceSimulation(nodes)
+  .force("link", d3.forceLink(linkObjs).id(d=>d.id).distance(l=>l.rel==="next"?80:120).strength(0.35))
+  .force("charge", d3.forceManyBody().strength(-260))
+  .force("centre", d3.forceCenter(0,0))
+  .force("collide", d3.forceCollide().radius(d=>d.r+12))
+  .on("tick", ()=>{
+    linkSel.attr("x1",d=>d.source.x).attr("y1",d=>d.source.y)
+           .attr("x2",d=>d.target.x).attr("y2",d=>d.target.y);
+    nodeSel.attr("transform", d=>`translate(${d.x},${d.y})`);
+  });
+
+nodeSel.call(d3.drag()
+  .on("start",(e,d)=>{ if(!e.active) sim.alphaTarget(0.3).restart(); d.fx=d.x; d.fy=d.y; })
+  .on("drag", (e,d)=>{ d.fx=e.x; d.fy=e.y; })
+  .on("end",  (e,d)=>{ if(!e.active) sim.alphaTarget(0); d.fx=null; d.fy=null; }));
+
+const zoom = d3.zoom().scaleExtent([0.25,4]).on("zoom", e=>g.attr("transform", e.transform));
+svg.call(zoom);
+
+function fit() {
+  const w = svg.node().clientWidth, h = svg.node().clientHeight;
+  svg.call(zoom.transform, d3.zoomIdentity.translate(w/2,h/2).scale(0.9));
+}
+fit(); window.addEventListener("resize", fit);
+
+// selection / focus
+function focus(d) {
+  const neigh = adj.get(d.id); neigh.add(d.id);
+  nodeSel.classed("dim", n => !neigh.has(n.id));
+  linkSel.classed("dim", l => !(l.source.id===d.id || l.target.id===d.id))
+         .classed("hi",  l =>   l.source.id===d.id || l.target.id===d.id);
+  const info = d3.select("#info");
+  const linksOut = linkObjs.filter(l=>l.source.id===d.id || l.target.id===d.id);
+  info.html(`
+    <div class="type">${TYPES[d.type].label}</div>
+    <div class="title">${d.label}</div>
+    <div style="margin-top:8px"><strong>Connections (${linksOut.length})</strong></div>
+    <ul>${linksOut.map(l=>{
+      const other = l.source.id===d.id ? l.target : l.source;
+      return `<li><span style="color:${TYPES[other.type].color}">●</span> ${other.label}
+        <span style="color:#8b949e">— ${l.rel}</span></li>`;
+    }).join("")}</ul>
+  `);
+}
+function unfocus() {
+  nodeSel.classed("dim", false);
+  linkSel.classed("dim", false).classed("hi", false);
+  d3.select("#info").html('<span class="empty">Click a node to inspect.</span>');
+}
+nodeSel.on("click", (e,d)=>{ e.stopPropagation(); focus(d); });
+svg.on("click", unfocus);
+
+// legend + filters
+const legend = d3.select("#legend"), filters = d3.select("#filters");
+const visible = new Set(Object.keys(TYPES));
+for (const [k,v] of Object.entries(TYPES)) {
+  legend.append("div").html(`<span class="swatch" style="background:${v.color}"></span>${v.label}`);
+  const lab = filters.append("label");
+  lab.append("input").attr("type","checkbox").property("checked",true)
+    .on("change", function() {
+      if (this.checked) visible.add(k); else visible.delete(k);
+      nodeSel.style("display", n => visible.has(n.type) ? null : "none");
+      linkSel.style("display", l => visible.has(l.source.type) && visible.has(l.target.type) ? null : "none");
+    });
+  lab.append("span").text(v.label);
+}
+
+d3.select("#reset").on("click", ()=>{ nodes.forEach(n=>{n.fx=null;n.fy=null;}); sim.alpha(0.6).restart(); unfocus(); });
+d3.select("#recentre").on("click", fit);
+</script>
+</body>
+</html>
