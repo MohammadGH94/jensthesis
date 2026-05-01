@@ -16,8 +16,9 @@ vault/                     # Obsidian-style markdown vault
   50-Methods/              # Quanterix Simoa, Alamar ARGO, NULISA, GAMLSS, LASSO/EN
   60-Concepts/             # ATN, resilience, APOE4, plasma probability scores, Cdn implementation
   70-People/               # author, supervisor, committee, key collaborators
-  90-Maps/                 # Mermaid brain-map diagrams (rendered on GitHub)
+  90-Maps/                 # Mermaid brain-map diagrams + word cloud
 vault-graph.html           # standalone interactive force-directed graph (d3)
+scripts/build_wordcloud.py # regenerates vault/90-Maps/word-cloud.png from PDF
 ubc_2026_may_cooper_jennifer.pdf.pdf  # source PDF
 ```
 
@@ -36,6 +37,9 @@ Notes use Obsidian-style `[[wikilinks]]` and YAML frontmatter so the graph view,
 
 ### As an interactive map
 - Open `vault-graph.html` in any browser. Drag nodes, scroll to zoom, click to focus a sub-graph, toggle node types from the sidebar.
+
+### As a word cloud
+- See [`vault/90-Maps/Word Cloud.md`](vault/90-Maps/Word%20Cloud.md) for the rendered PNG plus the top-200 term frequencies. Re-run `python3 scripts/build_wordcloud.py` after PDF/text changes to refresh.
 
 ## How this was built
 
