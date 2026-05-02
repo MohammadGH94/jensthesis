@@ -61,7 +61,7 @@ graph TD
     SIM --> PT & AB & NF & GF
     S632 --> T61 & T62 --> F1 --> F2
 
-    PUB[/Published · Alz & Dementia 2024<br/>doi 10.1002/alz.13804/]:::con
+    PUB[/"Published · Alz and Dementia 2024<br/>doi 10.1002/alz.13804"/]:::con
     F1 --> PUB
 
     NEXT[→ Confounder context for<br/>Ch 7 / Ch 9 interpretation]:::sec

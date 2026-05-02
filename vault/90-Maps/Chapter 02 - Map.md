@@ -58,7 +58,7 @@ graph TD
     F1[Finding · U-shaped curves<br/>across age 3–79]:::find
     F2[Finding · sex not a modifier]:::find
     F3[Finding · ≥1 age partition<br/>per biomarker]:::find
-    F4[Finding · cross-lot agreement<br/>within ~4 pg/mL <60y]:::find
+    F4["Finding · cross-lot agreement<br/>within ~4 pg/mL under 60y"]:::find
 
     S222 --> CHMS
     S223 --> SIM

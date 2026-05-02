@@ -58,7 +58,7 @@ graph TD
     NF[NfL]:::ent
     GF[GFAP]:::ent
 
-    RCPPS[/RC-PPS · pre-dementia<br/>built from age 80–95<br/>5/15/25th & 75/85/95th percentiles<br/>≥80% spec or ≥70% sens/]:::con
+    RCPPS[/"RC-PPS · pre-dementia<br/>built from age 80–95<br/>5/15/25th and 75/85/95th percentiles<br/>≥80% spec or ≥70% sens"/]:::con
     ADNCPPS[/ADNC-PPS · dementia stage<br/>cut-offs via ROC + Youden's index/]:::con
 
     T91[Table 9.1 · COMPASS-ND demographics]:::tab

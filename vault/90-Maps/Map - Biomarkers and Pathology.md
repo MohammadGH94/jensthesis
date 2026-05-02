@@ -40,7 +40,7 @@ graph LR
     NF -.elevated in.-> CVD
 
     %% multiplex panel covers what canonical four don't
-    PANEL{{NULISA panel<br/>(Ch 7, 8)}}
+    PANEL{{"NULISA panel<br/>Ch 7, 8"}}
     PANEL -.detects.-> SYN
     PANEL -.detects.-> TDP
     PANEL -.detects.-> CVD

@@ -73,7 +73,7 @@ graph TD
     F74[Figure 7.4 · best discriminators]:::tab
 
     %% findings
-    F1[Finding · all 5 biomarkers significantly<br/>associated with all grading measures<br/>(linear regression)]:::find
+    F1["Finding · all 5 biomarkers significantly<br/>associated with all grading measures<br/>linear regression"]:::find
     F2[Finding · NfL not associated with CERAD<br/>p=0.1353]:::find
     F3[Finding · Aβ42/40 strongest with Thal/CERAD<br/>p-tau strongest with Braak]:::find
     F4[Finding · best single discriminator<br/>p-tau-217 AUROC 0.84]:::find

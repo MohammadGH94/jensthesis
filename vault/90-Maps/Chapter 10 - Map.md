@@ -35,10 +35,10 @@ graph TD
     S1031[10.3.1 Canadian vs global progress]:::sub
     S1032[10.3.2 Treatment availability vs diagnosis]:::sub
     S1033[10.3.3 Approval of new blood tests in Canada]:::sub
-    S1034[10.3.4 Public-health & economic assessments]:::sub
+    S1034[10.3.4 Public-health and economic assessments]:::sub
     S103 --> S1031 & S1032 & S1033 & S1034
 
-    S1041[10.4.1 AD diagnosis & implementation]:::sub
+    S1041[10.4.1 AD diagnosis and implementation]:::sub
     S1042[10.4.2 Midlife screening]:::sub
     S104 --> S1041 & S1042
 
