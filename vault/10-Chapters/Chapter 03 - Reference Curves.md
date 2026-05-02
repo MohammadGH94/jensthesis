@@ -10,6 +10,8 @@ tags: [chapter, reference-curves, gamlss]
 
 # Chapter 3 — Age-Specific Reference Curves
 
+**Detailed map:** [[Chapter 03 - Map]]
+
 Continuous reference curves (an upgrade from the discrete bins of [[Chapter 02 - Reference Intervals]]) using [[GAMLSS]]/[[LMS]] modelling.
 
 ## Cohort & methods

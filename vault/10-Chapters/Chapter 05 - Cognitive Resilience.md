@@ -10,6 +10,8 @@ tags: [chapter, resilience, super-seniors]
 
 # Chapter 5 — Cognitive Resilience
 
+**Detailed map:** [[Chapter 05 - Map]]
+
 Phenotyping cognitively resilient elderly using plasma biomarkers.
 
 ## Cohort & methods

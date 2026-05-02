@@ -12,6 +12,8 @@ tags: [chapter, apoe, p-tau-181, published]
 
 # Chapter 6 — APOE4 Modifies p-tau-181 in Super-Seniors
 
+**Detailed map:** [[Chapter 06 - Map]]
+
 A focused study of [[APOE4]] genotype effects on [[p-tau-181]] in cognitively healthy [[Super Seniors]].
 
 ## Cohort & methods

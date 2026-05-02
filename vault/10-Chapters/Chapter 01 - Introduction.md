@@ -8,6 +8,8 @@ tags: [chapter, introduction, background]
 
 # Chapter 1 — Introduction
 
+**Detailed map:** [[Chapter 01 - Map]]
+
 Background, biomarker landscape, and the thesis hypothesis. Sets up everything that follows.
 
 ## What it covers
