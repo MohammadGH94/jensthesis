@@ -12,6 +12,8 @@ tags: [chapter, reference-intervals, published]
 
 # Chapter 2 — Age-Specific Reference Intervals
 
+**Detailed map:** [[Chapter 02 - Map]]
+
 Discrete reference intervals for plasma biomarkers in a Canadian population, ages 3–79.
 
 ## Cohort & methods

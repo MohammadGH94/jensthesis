@@ -10,11 +10,13 @@ tags: [chapter, autopsy, adnc, simoa, nulisa]
 
 # Chapter 7 — Autopsy-Confirmed AD Neuropathology
 
+**Detailed map:** [[Chapter 07 - Map]]
+
 The pathological-validation backbone of the thesis.
 
 ## Cohort & methods
 
-- Cohort: [[CARD]] (Clinic for Alzheimer's and Related Disorders) participants with autopsy
+- Cohort: [[CARD]] (Clinic for Alzheimer's Disease and Related Disorders) participants with autopsy
 - Neuropathological grading: [[ADNC]], CERAD, Braak staging, etc.
 - Two platforms: [[Quanterix Simoa]] (4 analytes) **and** [[Alamar ARGO]] / [[NULISA]] (multiplex)
 - Statistics: associations and detection (AUROC) for each pathology measure

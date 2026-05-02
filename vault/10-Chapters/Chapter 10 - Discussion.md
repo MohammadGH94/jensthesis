@@ -8,6 +8,8 @@ tags: [chapter, discussion, synthesis]
 
 # Chapter 10 — Discussion
 
+**Detailed map:** [[Chapter 10 - Map]]
+
 Synthesis of all findings, the Canadian-implementation framing, and future directions.
 
 ## Sections

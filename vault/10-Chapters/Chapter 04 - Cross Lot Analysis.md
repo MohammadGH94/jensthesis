@@ -9,6 +9,8 @@ tags: [chapter, qc, reproducibility, simoa]
 
 # Chapter 4 — Cross-Lot Analysis of Simoa Assays
 
+**Detailed map:** [[Chapter 04 - Map]]
+
 A methods/QC chapter that underpins every other data chapter using [[Quanterix Simoa]].
 
 ## What it does

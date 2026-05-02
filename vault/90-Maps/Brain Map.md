@@ -141,3 +141,18 @@ If the full graph is too dense, see:
 
 - [[Map - Chapters and Cohorts]]
 - [[Map - Biomarkers and Pathology]]
+
+## Per-chapter detailed maps
+
+One Mermaid map per chapter showing sub-section structure, methods, key findings, and forward links:
+
+- [[Chapter 01 - Map]] — Introduction (12 sub-sections, biomarker/method anchors)
+- [[Chapter 02 - Map]] — Reference Intervals (U-shaped curves, cross-lot agreement)
+- [[Chapter 03 - Map]] — Reference Curves (GAMLSS/LMS, web app, sex-modified p-tau-181)
+- [[Chapter 04 - Map]] — Cross-Lot QC (within/between-lot bias, harmonisation)
+- [[Chapter 05 - Map]] — Cognitive Resilience (38% biomarker-super, female enrichment)
+- [[Chapter 06 - Map]] — APOE4 × p-tau-181 (published)
+- [[Chapter 07 - Map]] — Autopsy ADNC (AUROCs 0.84/0.88/0.91, Thal/Braak/CERAD/ABC)
+- [[Chapter 08 - Map]] — Co-pathologies (LASSO α=1, elastic-net α=0.5, NULISA 120-plex)
+- [[Chapter 09 - Map]] — COMPASS-ND Prevalence (RC-PPS + ADNC-PPS pipeline)
+- [[Chapter 10 - Map]] — Discussion (Canadian implementation pull-throughs)

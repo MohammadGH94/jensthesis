@@ -10,6 +10,8 @@ tags: [chapter, copathology, lasso, alamar, pilot]
 
 # Chapter 8 — Co-pathologies in an Autopsy Cohort
 
+**Detailed map:** [[Chapter 08 - Map]]
+
 An extension of [[Chapter 07 - Autopsy AD Neuropathology|Chapter 7]] — preliminary pilot data exploring biomarkers for non-AD pathologies (α-synuclein, [[TDP-43 Pathology]], cerebrovascular disease) alongside [[ADNC]]. Used to plan a larger biomarker-discovery study.
 
 ## Cohort & methods

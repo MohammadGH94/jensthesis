@@ -10,6 +10,8 @@ tags: [chapter, prevalence, plasma-probability-scores]
 
 # Chapter 9 — COMPASS-ND Prevalence
 
+**Detailed map:** [[Chapter 09 - Map]]
+
 The integration chapter — combines [[Chapter 03 - Reference Curves|reference curves]] and [[Chapter 07 - Autopsy AD Neuropathology|autopsy cut-offs]] into [[Plasma Probability Scores]] applied to [[COMPASS-ND]].
 
 ## Cohort & methods
